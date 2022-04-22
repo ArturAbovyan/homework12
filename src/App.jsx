@@ -1,48 +1,23 @@
-import { useEffect, useMemo, useState } from 'react';
 import './App.css';
-import useLocalStorage from './Custom Hooks/useLocalStorage';
-import useTheme from './Custom Hooks/useTheme';
-
+import  React, { useContext } from "react";
+import Theme from './components/theme';
+import LocalStorage from './components/localStorage';
+import Fetch from './components/fetch';
+import ListItem from './components/listItem';
+export const listItems = React.createContext('');
 function App() {
-  const [setUserTheme,setClassName,setTheme] = useTheme({
-    "background-color": "red",
-    "fontSize": "14px",
-    "border-radius": "4px",
-    "button-border": "none",
-    "color": "#FFF",
-    "button-background-color": "#6772e5",
-    "button-hover-border": "none",
-    "button-hover-color": "#FFF",
-  })
-  const [value, setValue, clear, get] = useLocalStorage("inputValue", "");
-  const [inputValue, setInputValue] = useState("")
-  const [valueToShow, setValueToShow] = useState("")
-  let text = "hello"
-  const takeValue = (e) =>{
-    setInputValue(e.target.value)
-  }
- const handleThemeChoose = ()=>{
-  setClassName("button")
-  setTheme(); 
-}
   return (
     <div className="App">
-      <input type="text" onChange={takeValue}/>
-      <button onClick={()=> {
-        setValue(inputValue)
-      }} >Set Value</button>
-      <button onClick={()=> {
-        clear()
-      }} >Clear Value</button>
-       <button onClick={()=>{
-        setValueToShow(get())
-       }} >Get Value</button>
-       <div style={{
-         color:"green",
-         fontSize:"30px"
-       }}>{valueToShow}</div>
-       <button onClick={handleThemeChoose}>Set Theme</button>
-        <button className="button" onClick={handleThemeChoose}>Button</button>
+      <h2>Theme Exercise With Switch Button</h2>
+      <Theme/>
+      <h1>Local Storage Exercise</h1>
+      <LocalStorage/>
+      <button className="hookChanged">Button</button>
+      <h1>Use Fetch</h1>
+      <Fetch/>
+      <ListItem/>
+      <listItems.Provider>
+        </listItems.Provider>
     </div>
   );
 }
